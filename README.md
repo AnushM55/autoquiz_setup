@@ -26,3 +26,13 @@ Enter the password for the zip to get the credentials
 
 
 ## Running the project
+
+
+Move back to the root directory 
+
+
+```bash 
+chmod +x run.sh
+./run.sh
+
+```

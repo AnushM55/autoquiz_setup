@@ -32,8 +32,16 @@ view_logs() {
   local name=$1
   local log_file=$2
 
-  echo "Viewing logs for $name..."
-  tail -f "$log_file"
+  echo "Viewing logs for $name ..."
+  tail -f "$log_file" &
+  local tail_pid=$!
+
+  # Wait for a keypress
+  read -n 1 -s -r -p "Press any key to exit log view..."
+
+  # Kill the tail process
+  kill "$tail_pid"
+  echo -e "\nReturning to menu..."
 }
 
 BACKEND_REPO="https://github.com/anushm55/autoquiz_backend.git"
@@ -49,6 +57,9 @@ cd $BACKEND_DIR
 source venv/bin/activate
 run_service "backend" "python main.py" "../$BACKEND_LOG"
 cd ..
+
+## Launching OPENAPI Specification
+openapi-generator-cli generate -i http://localhost:8000/openapi.json -g python -o google_quiz_sdk
 
 while true; do
   echo ""

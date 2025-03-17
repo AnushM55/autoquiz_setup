@@ -98,3 +98,5 @@ cd "$FRONTEND_REPO_DIR"
 # Install dependencies
 echo "Installing dependencies..."
 npm install
+
+cd ..
